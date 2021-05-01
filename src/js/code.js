@@ -46,48 +46,33 @@ function openModal() {
 };
 
 function modalEvents() {
-  modalEl.addEventListener('click', onCloseBtn)
-  modalEl.addEventListener('click', overlayClose);
+  modalEl.addEventListener('click', onCloseClick);
   window.addEventListener('keydown', onEscapeClose);
   window.addEventListener('keydown', photoSlider);
 };
 
 // ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА
-function onCloseBtn(event) {
-  if (event.target === closeBtnEl) {
-    modalEl.classList.toggle('is-open');
-    modalImgEl.setAttribute('src', '#');
 
-    modalEl.removeEventListener('click', onCloseBtn);
-    modalEl.removeEventListener('click', overlayClose);
-    window.removeEventListener('keydown', onEscapeClose);
-    window.removeEventListener('keydown', photoSlider);
+function onCloseClick(event) {
+  if (event.target === closeBtnEl || overlayEl) {
+    closeEvent()
   };
-};
-
-function overlayClose(event) {
-  if (event.target === overlayEl) {
-    modalEl.classList.toggle('is-open');
-    modalImgEl.setAttribute('src', '#');
-
-    modalEl.removeEventListener('click', onCloseBtn);
-    modalEl.removeEventListener('click', overlayClose);
-    window.removeEventListener('keydown', onEscapeClose);
-    window.removeEventListener('keydown', photoSlider);
-  };
-};
+ }
 
 function onEscapeClose(event) {
   if (event.code === 'Escape') {
-    modalEl.classList.toggle('is-open');
-    modalImgEl.setAttribute('src', '#');
-
-    modalEl.removeEventListener('click', onCloseBtn);
-    modalEl.removeEventListener('click', overlayClose);
-    window.removeEventListener('keydown', onEscapeClose);
-    window.removeEventListener('keydown', photoSlider);
+    closeEvent()
   };
 };
+
+function closeEvent() {
+  modalEl.classList.toggle('is-open');
+  modalImgEl.setAttribute('src', '#');
+
+  modalEl.removeEventListener('click', onCloseClick);
+  window.removeEventListener('keydown', onEscapeClose);
+  window.removeEventListener('keydown', photoSlider);
+}
 
 // СЛАЙДЕР
 function photoSlider(event) {
